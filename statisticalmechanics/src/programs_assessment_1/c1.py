@@ -11,12 +11,11 @@ for i in range(n_trials):
         n_hits += 1
         Obs = 4.0
     var += (Obs - math.pi)**2
-    var2 += (Obs * Obs - math.pi * math.pi)**2
+    var2 += Obs * Obs
 
-a = math.sqrt(var / n_trials)
-b = math.sqrt(var2 / n_trials) 
+a = math.sqrt(var / float(n_trials))
+b = var2 / float(n_trials)
 
-print 4.0 * n_hits / float(n_trials), a, b, b - a*a 
+print 4.0 * n_hits / float(n_trials), a, b, math.sqrt(b - a*a) 
 
-#  <Obs> and <Obs^2>, <Obs^2> - <Obs>^2,
 
