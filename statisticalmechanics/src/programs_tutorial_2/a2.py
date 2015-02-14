@@ -25,7 +25,7 @@ def markov_disks_box(N, sigma):
         b = [a[0] + random.uniform(-delta, delta), a[1] + random.uniform(-delta, delta)]
         min_dist = min((b[0] - c[0]) ** 2 + (b[1] - c[1]) ** 2 for c in L if c != a)
         box_cond = min(b[0], b[1]) < sigma or max(b[0], b[1]) > 1.0 - sigma
-        if not (box_cond or min_dist < 4.0 * sigma ** 2):
+        if not (box_cond or min_dist < 4.0 * sigma_sq):
             a[:] = b
     return L
 
