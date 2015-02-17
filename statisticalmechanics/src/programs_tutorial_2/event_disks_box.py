@@ -35,6 +35,7 @@ singles = [(0, 0), (0, 1), (1, 0), (1, 1), (2, 0), (2, 1), (3, 0), (3, 1)]
 pairs = [(0, 1), (0, 2), (0, 3), (1, 2), (1, 3), (2, 3)]
 sigma = 0.10
 t = 0.0
+dt = 1
 n_events = 5000000
 for event in range(n_events):
     if event % 100000 == 0:
@@ -55,7 +56,9 @@ for event in range(n_events):
                 condition_hit *= condition_b
             if condition_hit:
                 hits[conf] += 1
+#    next_t = t + dt
     t += next_event
+    print t
     del_t = t - t_previous
     for k, l in singles:
         pos[k][l] += vel[k][l] * del_t
