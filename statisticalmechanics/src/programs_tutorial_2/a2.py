@@ -30,7 +30,7 @@ def markov_disks_box(L, sigma):
 #sigma = 0.15
 #del_xy = 0.05
 
-L = [[0.25, 0.25], [0.75, 0.25], [0.25, 0.75], [0.75, 0.75]]
+x_vec = [[0.25, 0.25], [0.75, 0.25], [0.25, 0.75], [0.75, 0.75]]
 
 sigma = 0.15
 #del_xy = 0.10
@@ -44,7 +44,7 @@ configurations = [conf_a, conf_b, conf_c]
 hits = {conf_a: 0, conf_b: 0, conf_c: 0}
 for run in range(n_runs):
 #    x_vec = direct_disks_box(4, sigma)
-    x_vec = markov_disks_box(L, sigma)
+    x_vec = markov_disks_box(x_vec, sigma)
     for conf in configurations:
         condition_hit = True
         for b in conf:
