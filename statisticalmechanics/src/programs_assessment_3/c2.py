@@ -95,26 +95,44 @@ print 'N = ', N, len(L)
 sigma = math.sqrt(eta / N / math.pi)
 
 print 'sigma = ', sigma
-#n_runs = 10
+
+#n_runs = 1000000
 n_runs = 1000000
 
-
-f2 = open('psi.dat', 'w')
+y = []
+z = []
+psi_arg = 0
+n = 0
 for run in range(n_runs):
     if(run % 100 == 0):
         psi = Psi_6(L, sigma)
-        f2.write(eta + ' ' + str(psi.real) +  ' ' + str(psi.imag) + '\n')
+        psi_arg = psi_arg + abs(psi)
+        n = n + 1
     if(run % 10000 == 0 and eta > 0.2):
+        y.append(eta)
+        z.append(psi_arg / float(n))
         eta = eta - 0.02
+        psi_arg = 0
+        n = 0        
         sigma = math.sqrt(eta / float(N) / math.pi)
         print 'eta =', eta
     L = markov_disks(L, sigma)
-f2.close()
 
-print 'Psi_6 = ', Psi_6(L, sigma)
-#print L
-show_conf(L, sigma, title, basefilename + '.png')
+# eta equals 0.2 value
 
+y.append(eta)
+z.append(psi_arg / float(n))
+
+#show_conf(L, sigma, title, basefilename + '.png')
+
+pylab.title("phase transition in two dimensions")
+pylab.xlabel('eta')
+pylab.ylabel('|Psi_6|')
+pylab.plot(y, z)
+pylab.show()
+pylab.savefig("psi.png")
+pylab.close()
+    
 # print 'writing to file', filename
 # f = open(filename, 'w')
 # for a in L:
