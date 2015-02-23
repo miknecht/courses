@@ -1,4 +1,4 @@
-import random, pylab, math
+import os, random, pylab, math
 
 def dist(x,y):
     d_x = abs(x[0] - y[0]) % 1.0
@@ -32,14 +32,38 @@ def markov_disks(L, sigma):
         a[:] = b
     return L
 
-pos = [[0.25, 0.25], [0.75, 0.25], [0.25, 0.75], [0.75, 0.75]]
-N = len(pos)
+L = [[0.25, 0.25], [0.75, 0.25], [0.25, 0.75], [0.75, 0.75]]
+N = len(L)
 eta = 0.1
 sigma = math.sqrt(eta / N / math.pi)
+
+filename = 'disk_configuration_N%i_eta%.2f.txt' % (N, eta)
+
+
+if os.path.isfile(filename):
+    f = open(filename, 'r')
+    L = []
+    for line in f:
+        a, b = line.split()
+        L.append([float(a), float(b)])
+    f.close()
+    print 'starting from file', filename
+else:
+    L = []
+    for k in range(N):
+        L.append([random.uniform(0.0, 1.0), random.uniform(0.0, 1.0)])
+    print 'starting from a new random configuration'
+
+f = open(filename, 'w')
+for a in L:
+   f.write(str(a[0]) + ' ' + str(a[1]) + '\n')
+f.close()
+
+
 print sigma
 n_runs = 10000
 for run in range(n_runs):
-    pos = markov_disks(pos, sigma)
+    L = markov_disks(L, sigma)
     
-print pos
-show_conf(pos, sigma, 'Markov disk with periodic boundary condition', 'test.png')
+print L
+show_conf(L, sigma, 'Markov disk with periodic boundary condition', 'test.png')
