@@ -61,6 +61,9 @@ def Psi_6(L, sigma):
     return sum_vector / float(N)
 
 
+def format(value):
+    return "%.4f" % value
+
 k = 8
 N = k*k
 
@@ -92,18 +95,29 @@ print 'N = ', N, len(L)
 sigma = math.sqrt(eta / N / math.pi)
 
 print 'sigma = ', sigma
-n_runs = 10
-#n_runs = 1000000
+#n_runs = 10
+n_runs = 1000000
+
+
+f2 = open('psi.dat', 'w')
 for run in range(n_runs):
+    if(run % 100 == 0):
+        psi = Psi_6(L, sigma)
+        f2.write(eta + ' ' + str(psi.real) +  ' ' + str(psi.imag) + '\n')
+    if(run % 10000 == 0 and eta > 0.2):
+        eta = eta - 0.02
+        sigma = math.sqrt(eta / float(N) / math.pi)
+        print 'eta =', eta
     L = markov_disks(L, sigma)
+f2.close()
 
 print 'Psi_6 = ', Psi_6(L, sigma)
 #print L
 show_conf(L, sigma, title, basefilename + '.png')
 
-print 'writing to file', filename
-f = open(filename, 'w')
-for a in L:
-   f.write(str(a[0]) + ' ' + str(a[1]) + '\n')
-f.close()
+# print 'writing to file', filename
+# f = open(filename, 'w')
+# for a in L:
+#    f.write(str(a[0]) + ' ' + str(a[1]) + '\n')
+# f.close()
 

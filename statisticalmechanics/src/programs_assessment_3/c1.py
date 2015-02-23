@@ -5,7 +5,7 @@ def psifunc(N, delta):
     psi = complex(0,0)
     for i in range(N):
         psi = psi + cmath.exp(N * complex(0,1) * (i / N + delta))
-    return psi / N
+    return psi / float(N)
 
 
 
