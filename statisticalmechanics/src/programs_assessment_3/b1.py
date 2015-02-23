@@ -13,7 +13,7 @@ def show_conf(L, sigma, title, fname):
     for [x, y] in L:
         for ix in range(-1, 2):
             for iy in range(-1, 2):
-                cir = pylab.Circle(((x + ix) % 1.0, (y + iy) % 1.0), radius=sigma,  fc='r')
+                cir = pylab.Circle(((x + ix) , (y + iy) ), radius=sigma,  fc='r')
                 pylab.gca().add_patch(cir)
     pylab.axis('scaled')
     pylab.title(title)
@@ -34,7 +34,8 @@ def markov_disks(L, sigma):
 
 pos = [[0.25, 0.25], [0.75, 0.25], [0.25, 0.75], [0.75, 0.75]]
 N = len(pos)
-sigma = 0.1197
+sigma = 0.2197
+
 n_runs = 10000
 for run in range(n_runs):
     pos = markov_disks(pos, sigma)
