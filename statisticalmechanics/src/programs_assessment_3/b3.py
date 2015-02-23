@@ -32,9 +32,19 @@ def markov_disks(L, sigma):
         a[:] = b
     return L
 
-L = [[0.25, 0.25], [0.75, 0.25], [0.25, 0.75], [0.75, 0.75]]
+def gen(k):
+    N_sqrt = k
+    delxy = 1. / (k*k)
+    two_delxy = 2 * delxy
+    L = [[delxy + i * two_delxy, delxy + j * two_delxy] for i in range(N_sqrt) for j in range(N_sqrt)]
+    return L
+    
+#L = [[0.25, 0.25], [0.75, 0.25], [0.25, 0.75], [0.75, 0.75]]
+k = 8
+N = k*k
+L = gen(k)
 N = len(L)
-eta = 0.1
+eta = 0.72
 sigma = math.sqrt(eta / N / math.pi)
 
 filename = 'disk_configuration_N%i_eta%.2f.txt' % (N, eta)
