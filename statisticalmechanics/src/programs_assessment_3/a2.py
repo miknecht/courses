@@ -14,6 +14,7 @@ else:
     for k in range(3):
         L.append([random.uniform(0.0, 1.0), random.uniform(0.0, 1.0)])
     print 'starting from a new random configuration'
+
 L[0][0] = 3.3
 f = open(filename, 'w')
 for a in L:
