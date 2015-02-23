@@ -33,19 +33,21 @@ def markov_disks(L, sigma):
     return L
 
 def gen(k):
-    N_sqrt = k
-    delxy = 1. / (k*k)
+    delxy = 0.5 / k
     two_delxy = 2 * delxy
-    L = [[delxy + i * two_delxy, delxy + j * two_delxy] for i in range(N_sqrt) for j in range(N_sqrt)]
+    L = [[delxy + i * two_delxy, delxy + j * two_delxy] for i in range(k) for j in range(k)]
     return L
     
-#L = [[0.25, 0.25], [0.75, 0.25], [0.25, 0.75], [0.75, 0.75]]
 k = 8
 N = k*k
 L = gen(k)
 N = len(L)
-eta = 0.72
+eta = math.pi / 4
+print 'eta = ', eta
+print 'N = ', N
 sigma = math.sqrt(eta / N / math.pi)
+
+show_conf(L, sigma, 'Markov disk with periodic boundary condition', 'test.png')
 
 filename = 'disk_configuration_N%i_eta%.2f.txt' % (N, eta)
 
