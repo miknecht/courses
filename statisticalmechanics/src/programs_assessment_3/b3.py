@@ -1,4 +1,4 @@
-import os, random, pylab, math
+import os, random, pylab, math, cmath
 
 def dist(x,y):
     d_x = abs(x[0] - y[0]) % 1.0
@@ -36,6 +36,31 @@ def gen(k):
     two_delxy = 2 * delxy
     return [[delxy + i * two_delxy, delxy + j * two_delxy] for i in range(k) for j in range(k)]
 
+
+def delx_dely(x, y):
+    d_x = (x[0] - y[0]) % 1.0
+    if d_x > 0.5: d_x -= 1.0
+    d_y = (x[1] - y[1]) % 1.0
+    if d_y > 0.5: d_y -= 1.0
+    return d_x, d_y
+
+def Psi_6(L, sigma):
+    sum_vector = 0j
+    for i in range(N):
+        vector  = 0j
+        n_neighbor = 0
+        for j in range(N):
+            if dist(L[i], L[j]) < 2.8 * sigma and i != j:
+                n_neighbor += 1
+                dx, dy = delx_dely(L[j], L[i])
+                angle = cmath.phase(complex(dx, dy))
+                vector += cmath.exp(6.0j * angle)
+        if n_neighbor > 0:
+            vector /= n_neighbor
+        sum_vector += vector
+    return sum_vector / float(N)
+
+
 k = 8
 N = k*k
 
@@ -46,6 +71,7 @@ eta = eta_b5
 
 title = 'Markov disk with periodic boundary condition\nN = %i, eta = %.2f' % (N, eta)
 
+basefilename = 'N%i_eta%.2f.txt' % (N, eta)
 filename = 'disk_configuration_N%i_eta%.2f.txt' % (N, eta)
 
 if os.path.isfile(filename):
@@ -69,11 +95,10 @@ print 'eta = ', eta
 print 'N = ', N, len(L)
 sigma = math.sqrt(eta / N / math.pi)
 
-
 print sigma
 n_runs = 1000000
 for run in range(n_runs):
     L = markov_disks(L, sigma)
     
 print L
-show_conf(L, sigma, title, 'test.png')
+show_conf(L, sigma, title, basefilename + '.png')
