@@ -1,0 +1,18 @@
+import random
+
+x, y = 0.0, 0.0
+delta = 0.2
+n_trials = 10000000
+n_hits = 0
+for _ in range(n_trials):
+    del_x, del_y = random.uniform(-delta, delta), random.uniform(-delta, delta)
+    dx = x + del_x
+    dy = y + del_y
+    z = random.uniform(-1.0, 1.0)
+    if abs(dx) < 1.0 and abs(dy) < 1.0:
+        x, y = dx, dy
+    if x ** 2 + y ** 2 + z ** 2 < 1.0: n_hits += 1
+#    if x ** 2 + y ** 2 < 1.0: n_hits += 1
+print 2.0 * n_hits / float(n_trials)
+#print 4.0 * n_hits / float(n_trials)
+print 4.0 / 3.0
