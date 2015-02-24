@@ -1,13 +1,11 @@
-import random, pylab, math, numpy
+import random, math
 
-def f_N(r, N):
-    return float(N) * r**(N-1)
+def V_sph(dim):
+    return math.pi ** (dim / 2.0) / math.gamma(dim / 2.0 + 1.0)
 
-d = 20
+d = 2
 x = [0] * d
 delta = 0.1
-
-histo_data = []
 
 n_trials = 5000000
 n_hits = 0
@@ -21,17 +19,10 @@ for _ in range(n_trials):
         old_radius_square = new_radius_square
         x[k], alpha = x_new_k, random.uniform(-1.0, 1.0)
     if old_radius_square + alpha ** 2 < 1.0: n_hits += 1
-    histo_data.append(math.sqrt(old_radius_square))
 
 
-t = numpy.arange(0., 1., 0.02)
+result = 2.0 * float(n_hits) / float(n_trials)
 
-print 2.0 * float(n_hits) / float(n_trials)
-pylab.hist(histo_data, bins=100, normed=True)
-pylab.plot(t, f_N(t, d), "ro")
-pylab.xlabel('r')
-pylab.ylabel('frequency')
-pylab.title('P(r) and Q for d = 20')
-pylab.grid()
-pylab.savefig('q_n.png')
-pylab.show()
+print d, result, V_sph(d) / V_sph(d - 1), abs(result - V_sph(d) / V_sph(d - 1)) 
+
+
