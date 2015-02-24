@@ -3,11 +3,12 @@ import random, math
 def V_sph(dim):
     return math.pi ** (dim / 2.0) / math.gamma(dim / 2.0 + 1.0)
 
-d = 2
+dim = 20
+d = dim - 1
 x = [0] * d
 delta = 0.1
 
-n_trials = 5000000
+n_trials = 50000000
 n_hits = 0
 old_radius_square = 0
 for _ in range(n_trials):
@@ -23,6 +24,6 @@ for _ in range(n_trials):
 
 result = 2.0 * float(n_hits) / float(n_trials)
 
-print d, result, V_sph(d) / V_sph(d - 1), abs(result - V_sph(d) / V_sph(d - 1)) 
+print dim, result, V_sph(dim) / V_sph(dim -1), abs(result - V_sph(dim) / V_sph(dim - 1)) 
 
 
