@@ -8,6 +8,7 @@ def direct_pi(N):
             n_hits += 1
     return n_hits
 
+
 n_runs = 500
 n_trials_list = []
 sigmasqs = []
