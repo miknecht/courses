@@ -12,3 +12,4 @@ for x in grid_x:
                       math.sqrt((n - 1.0) / n) * psi[x][n - 2])
 for n in range(n_states):
     print 'level %i:' % n, [psi[x][n] for x in grid_x]
+

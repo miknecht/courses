@@ -8,6 +8,7 @@ def direct_pi(N):
             n_hits += 1
     return n_hits
  
+ 
 n_runs = 1000
 n_trials = 4000
 for run in range(n_runs):
