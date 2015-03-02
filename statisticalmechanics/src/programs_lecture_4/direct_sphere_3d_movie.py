@@ -20,3 +20,4 @@ ax.set_ylabel('$y$', fontsize=14)
 ax.set_zlabel('$z$', fontsize=14)
 pylab.plot(x_list, y_list, z_list, '.')
 pylab.show()
+
