@@ -1,5 +1,10 @@
-'''
-Created on 02.03.2015
+import random, math
 
-@author: mk
-'''
+x = 0.0
+delta = 0.5
+for k in xrange(100000):
+    x_new = x + random.uniform(-delta, delta)
+    if random.uniform(0.0, 1.0) <  \
+         math.exp (- x_new ** 2 / 2.0) / math.exp (- x ** 2 / 2.0): 
+        x = x_new 
+    print x
