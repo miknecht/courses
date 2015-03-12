@@ -39,11 +39,9 @@ for j in range(nx + 1):
     y1.append(rho[j, j] / Z)
 f.close()
 
-#t = numpy.arange(-10, 10, 0.1)
 vfun_quant = numpy.vectorize(pi_quant)
 y_quant =  vfun_quant(beta, x)
 
-#pylab.hist(histo_data, bins=100, normed=True)
 pylab.plot(x, y1, "r-")
 pylab.plot(x, y_quant, "b-")
 pylab.xlabel('x')

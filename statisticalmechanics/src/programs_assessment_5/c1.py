@@ -8,23 +8,12 @@ def rho_free(x, xp, beta):
     return (math.exp(-(x - xp) ** 2 / (2.0 * beta)) /
             math.sqrt(2.0 * math.pi * beta))
 
-# Harmonic density matrix in the Trotter approximation (returns the full matrix)
-# def rho_harmonic_trotter(grid, beta):
-#     return numpy.array([[rho_free(x, xp, beta) * \
-#                          numpy.exp(-0.5 * beta * 0.5 * (x ** 2 + xp ** 2)) \
-#                          for x in grid] for xp in grid])
-    
-    
-    
 
 def V(x, cubic, quartic): 
     return x * x / 2.0 + cubic * x * x * x + quartic * x * x * x * x
 
-#quartic = - 1.0
-#cubic = 1.0    
-
-quartic = 0
-cubic = 0  
+quartic = 1
+cubic = -1  
 
 def rho_anharmonic_trotter(grid, beta, quartic, cubic):
     print quartic 
@@ -52,7 +41,7 @@ while beta_tmp < beta:
     
 Z = sum(rho[j, j] for j in range(nx + 1)) * dx
 pi_of_x = [rho[j, j] / Z for j in range(nx + 1)]
-f = open('data_harm_matrixsquaring_beta' + str(beta) + '.dat', 'w')
+f = open('data_anharmonic_matrixsquaring_beta' + str(beta) + '.dat', 'w')
 x1 = []
 y1 = []
 for j in range(nx + 1):
@@ -60,6 +49,7 @@ for j in range(nx + 1):
     x1.append(x[j])
     y1.append(rho[j, j] / Z)
 f.close()
+
 
 vfun_quant = numpy.vectorize(pi_quant)
 y_quant =  vfun_quant(beta, x)
