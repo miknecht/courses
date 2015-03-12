@@ -9,10 +9,32 @@ def rho_free(x, xp, beta):
             math.sqrt(2.0 * math.pi * beta))
 
 # Harmonic density matrix in the Trotter approximation (returns the full matrix)
-def rho_harmonic_trotter(grid, beta):
+# def rho_harmonic_trotter(grid, beta):
+#     return numpy.array([[rho_free(x, xp, beta) * \
+#                          numpy.exp(-0.5 * beta * 0.5 * (x ** 2 + xp ** 2)) \
+#                          for x in grid] for xp in grid])
+    
+    
+    
+
+def V(x, cubic, quartic): 
+    return x * x / 2.0 + cubic * x * x * x + quartic * x * x * x * x
+
+#quartic = - 1.0
+#cubic = 1.0    
+
+quartic = 0
+cubic = 0  
+
+def rho_anharmonic_trotter(grid, beta, quartic, cubic):
+    print quartic 
     return numpy.array([[rho_free(x, xp, beta) * \
-                         numpy.exp(-0.5 * beta * 0.5 * (x ** 2 + xp ** 2)) \
+                         numpy.exp(-0.5 * beta * \
+                         (V(x, cubic, quartic) + V(xp, cubic, quartic))) \
                          for x in grid] for xp in grid])
+
+
+
 
 x_max = 5.0                              # the x range is [-x_max,+x_max]
 nx = 100
@@ -21,7 +43,7 @@ x = [i * dx for i in range(-(nx - 1) / 2, nx / 2 + 1)]
 beta_tmp = 2.0 ** (-5)                   # initial value of beta (power of 2)
 #beta     = 2.0 ** 4                      # actual value of beta (power of 2)
 beta     = 2.0 ** 2   
-rho = rho_harmonic_trotter(x, beta_tmp)  # density matrix at initial beta
+rho = rho_anharmonic_trotter(x, beta_tmp, quartic, cubic)  # density matrix at initial beta
 while beta_tmp < beta:
     rho = numpy.dot(rho, rho)
     rho *= dx
@@ -39,16 +61,14 @@ for j in range(nx + 1):
     y1.append(rho[j, j] / Z)
 f.close()
 
-#t = numpy.arange(-10, 10, 0.1)
 vfun_quant = numpy.vectorize(pi_quant)
 y_quant =  vfun_quant(beta, x)
 
-#pylab.hist(histo_data, bins=100, normed=True)
 pylab.plot(x, y1, "r-")
 pylab.plot(x, y_quant, "b-")
 pylab.xlabel('x')
 pylab.ylabel('pi_n^2 (sim blue, quant blue)')
-pylab.title('harmonic potential matrix squaring at finite temperature\nbeta = {:-f}'.format(beta))
+pylab.title('harmonic potential matrix squaring at finite temperature\nbeta = {:-f} quartic = {:-f}, cubic = {:-f}'.format(beta, quartic, cubic))
 pylab.grid()
 pylab.savefig('psi_2_2.png')
 pylab.show()
