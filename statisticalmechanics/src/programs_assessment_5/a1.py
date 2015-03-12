@@ -12,11 +12,10 @@ histo_data = []
 
 x = 0.0
 delta = 0.5
-for k in xrange(100000):
+for k in xrange(1000000):
     x_new = x + random.uniform(-delta, delta)
     if random.uniform(0.0, 1.0) <  psi_2_squard(x_new) / psi_2_squard(x): 
         x = x_new 
-    print x
     histo_data.append(x)
     
 t = numpy.arange(-4, 4, 0.1)

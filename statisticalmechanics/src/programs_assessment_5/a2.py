@@ -11,9 +11,7 @@ def psi_n_square(x, n):
                        math.sqrt((k - 1.0) / k) * psi[k - 2])
         return psi[n] ** 2
 
-#beta = 0.2
-#beta = 1
-beta = 5
+
 
 
 def pi_quant(beta, x):
@@ -30,10 +28,15 @@ def p(beta, n, m, x):
 
 histo_data = []
 
+#beta = 0.2
+#beta = 1
+beta = 5
+
 n = 0
 x = 0.0
 delta = 0.5
-for k in xrange(100000):
+M = 800000
+for k in xrange(M):
     x_new = x + random.uniform(-delta, delta)
     if random.uniform(0.0, 1.0) <  psi_n_square(x_new, n) / psi_n_square(x, n): 
         x = x_new 
@@ -56,7 +59,7 @@ pylab.plot(t, y_quant, "r-")
 pylab.plot(t, y_class, "b-")
 pylab.xlabel('x')
 pylab.ylabel('pi_n^2 (class blue, quant red, sim histogram)')
-pylab.title('quantum particle in the harmonic potential\nat finite temperature\nbeta = {:-f}'.format(beta))
+pylab.title('quantum particle in the harmonic potential at finite temperature\nbeta = {:-f} and n = {:d}'.format(beta, M))
 pylab.grid()
 pylab.savefig('psi_2_2.png')
 pylab.show()
