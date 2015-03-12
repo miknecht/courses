@@ -23,3 +23,10 @@ while beta_tmp < beta:
     rho *= dx
     beta_tmp *= 2.0
     print 'beta: %s -> %s' % (beta_tmp / 2.0, beta_tmp)
+Z = sum(rho[j, j] for j in range(nx + 1)) * dx
+pi_of_x = [rho[j, j] / Z for j in range(nx + 1)]
+f = open('data_harm_matrixsquaring_beta' + str(beta) + '.dat', 'w')
+for j in range(nx + 1):
+    f.write(str(x[j]) + ' ' + str(rho[j, j] / Z) + '\n')
+f.close()
+
