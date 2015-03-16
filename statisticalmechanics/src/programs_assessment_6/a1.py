@@ -1,13 +1,22 @@
 import random, math, pylab
 
+def gauss_cut():
+    while True:
+        x = random.gauss(0.0, 1.0)
+        if abs(x) <= 1.0:
+            return x
+
+
 alpha = 0.5
 nsamples = 1000000
 samples_x = []
 samples_y = []
 for sample in xrange(nsamples):
     while True:
-        x = random.uniform(-1.0, 1.0)
-        y = random.uniform(-1.0, 1.0)
+#        x = random.uniform(-1.0, 1.0)
+#        y = random.uniform(-1.0, 1.0)
+        x = gauss_cut()
+        y = gauss_cut()
         p = math.exp(-0.5 * (x ** 2 + y ** 2) - alpha * (x ** 4 + y ** 4))
         if random.uniform(0.0, 1.0) < p:
             break

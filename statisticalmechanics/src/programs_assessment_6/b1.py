@@ -26,15 +26,13 @@ for step in range(n_steps):
         k = random.randint(0, N - 1)
         data.append(x[k])
 
-pylab.hist(data, normed=True, bins=100, label='QMC')
-list_x = [0.1 * a for a in range (-30, 31)]
-list_y = [math.sqrt(math.tanh(beta / 2.0)) / math.sqrt(math.pi) * \
-          math.exp(-x ** 2 * math.tanh(beta / 2.0)) for x in list_x]
-pylab.plot(list_x, list_y, label='analytic')
+list_x = x
+list_y = [ i * beta/N for i in range(N)]
+pylab.plot(list_x, list_y, label='path')
 pylab.legend()
 pylab.xlabel('$x$')
-pylab.ylabel('$\\pi(x)$ (normalized)')
+pylab.ylabel('imaginary time')
 pylab.title('naive_harmonic_path (beta=%s, N=%i)' % (beta, N))
 pylab.xlim(-2, 2)
-pylab.savefig('plot_B1_beta%s.png' % beta)
+pylab.savefig('plot_path_beta%s.png' % beta)
 pylab.show()
