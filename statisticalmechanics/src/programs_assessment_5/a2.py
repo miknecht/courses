@@ -1,4 +1,5 @@
 import random, math, pylab, numpy
+from cProfile import label
 
 def psi_n_square(x, n):
     if n == -1:
@@ -54,12 +55,13 @@ y_class =  vfun_class(beta, t)
 
 s = "beta = ", beta
 
-pylab.hist(histo_data, bins=100, normed=True)
-pylab.plot(t, y_quant, "r-")
-pylab.plot(t, y_class, "b-")
+pylab.hist(histo_data, bins=100, normed=True, label='QMC')
+pylab.plot(t, y_quant, "r-", label='quantum mechanical', linewidth=2)
+pylab.plot(t, y_class, "b-", label='classical', linewidth=2)
 pylab.xlabel('x')
-pylab.ylabel('pi_n^2 (class blue, quant red, sim histogram)')
-pylab.title('quantum particle in the harmonic potential at finite temperature\nbeta = {:-f} and n = {:d}'.format(beta, M))
+pylab.ylabel('pi^2')
+pylab.legend()
+pylab.title('quantum particle in the harmonic potential at finite temperature\nbeta = {:-f} and steps = {:d}'.format(beta, M))
 pylab.grid()
 pylab.savefig('psi_2_2.png')
 pylab.show()
