@@ -22,18 +22,21 @@ Ncut = N / 2
 dtau = beta / N
 delta = 1.0
 n_steps = 1000000
+sigma = 1.0 / math.sqrt( 2.0 *  math.tanh( beta / 2.0))
 
+x = [1] * N
 data = []
-x = [5.0] * N
+x_0 = random.gauss(0.0, sigma)
+x = [x_0] * N
 for step in range(n_steps):
     x = levy_harmonic_path(x[0], x[0], dtau, N)
     x = x[Ncut:] + x[:Ncut]
-    if step % N == 0:
+    if step % 50 == 0:
         k = random.randint(0, N - 1)
         data.append(x[k])
-    
- 
-pylab.hist(data, normed=True, bins=100, label='harmonic path')
+   
+
+pylab.hist(data, normed=True, bins=100, label='levy harmonic path')
 list_x = [0.1 * a for a in range (-30, 31)]
 list_y = [math.sqrt(math.tanh(beta / 2.0)) / math.sqrt(math.pi) * \
           math.exp(-x ** 2 * math.tanh(beta / 2.0)) for x in list_x]
