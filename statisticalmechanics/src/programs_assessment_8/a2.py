@@ -32,15 +32,17 @@ def x_y(k, L):
     return x, y
 
 #L = 6
-L=128
+L = 128
 N = L * L
 nbr = {i : ((i // L) * L + (i + 1) % L, (i + L) % N,
             (i // L) * L + (i - 1) % L, (i - L) % N) \
                                     for i in range(N)}
-T = 2.0
+T_crit = 2.27
+#T = T_crit
+T = 1.0
 filename = 'data_local_'+ str(L) + '_' + str(T) + '.txt'
 S = read(filename)
-nsteps = N * 100
+nsteps = N * 1000
 beta = 1.0 / T
 Energy = energy(S, N, nbr)
 E = []
