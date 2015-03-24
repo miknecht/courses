@@ -5,7 +5,7 @@ N = L * L
 nbr = {i : ((i // L) * L + (i + 1) % L, (i + L) % N,
             (i // L) * L + (i - 1) % L, (i - L) % N) \
                                     for i in range(N)}
-nsteps = 10 * N
+nsteps = 500000 * N
 T = 2.0
 beta = 1.0 / T
 S = [random.choice([-1, 1]) for site in range(N)]
@@ -23,4 +23,4 @@ for step in range(nsteps):
     if S[k] != Sk_old:
         E -= 2.0 * h * S[k]
     Energies.append(E)
-print 'mean energy per spin:', sum(Energies) / float(len(Energies) * N)
+print 'mean energy per spin:', sum(Energies) / float(len(Energies) * N), ' with ', nsteps , ' steps.'
