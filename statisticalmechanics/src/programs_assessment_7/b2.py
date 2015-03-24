@@ -70,13 +70,6 @@ for step in range(nsteps):
         positions[a_1] = b_1
         positions[a_2] = b_2
 
-        
-        
-#for boson in positions.keys():
-#    print boson, positions[boson]
-
-
-
 def psi02(x):    
     return math.exp(-x*x)/ math.sqrt(math.pi)
 
@@ -85,13 +78,13 @@ M = 300
 x = [ x_max * i / M for i in range(-M, M + 1)]
     
 pylab.plot(x, [ psi02(x) for x in x], label='$d^{calc}(r)$')
-pylab.hist(data_2, normed=True, bins=120, label='$d^{cycle}(r)$')
-pylab.hist(data_1, normed=True, bins=120, label='$d(r)$')
+pylab.hist(data_2, normed=True, bins=120, label='$d^{cycle}(r, \\beta)$')
+pylab.hist(data_1, normed=True, bins=120, label='$d(r, \\beta)$')
 
 pylab.legend()
 pylab.xlabel('$x$')
 pylab.ylabel('Sample')
-pylab.title('levy harmonic path (beta=%s)' % (beta))
+pylab.title('levy harmonic path ($\\beta$=%s)' % (beta))
 pylab.xlim(-3, 3)
 pylab.savefig('plot_levy_harmonic_path%s.png' % beta)
 

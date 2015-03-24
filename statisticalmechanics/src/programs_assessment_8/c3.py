@@ -29,3 +29,5 @@ while True:
             print 'coupling time:', t_coup
             break
         
+
+        

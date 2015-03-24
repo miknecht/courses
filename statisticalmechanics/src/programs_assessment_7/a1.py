@@ -18,23 +18,26 @@ N = 2
 beta = 2.0
 nsteps = 1000000
 low = levy_harmonic_path(2)
-data = []
+data0 = []
+data1 = []
 high = low[:]
 for step in xrange(nsteps):
     k = random.choice([0, 1])
     low[k] = levy_harmonic_path(1)[0]
     high[k] = low[k]
-    data.append(high[k])
+    if(k==0): data0.append(high[k])
+    if(k==1): data1.append(high[k])
     
 
 x = [ x_max * i / M for i in range(-M, M + 1)]
 
-pylab.plot(x, [ pi_x(x, beta) for x in x], label='$\pi_{calc}(x,beta)$')
-pylab.hist(data, normed=True, bins=100, label='$\pi_{sample}(x,beta)$')
+pylab.plot(x, [ pi_x(x, beta) for x in x], label='$\pi_{calc}(x,\\beta)$')
+pylab.hist(data0, normed=True, bins=100, label='$\pi_{0}(x,\\beta)$')
+pylab.hist(data1, normed=True, bins=100, label='$\pi_{1}(x,\\beta)$')
 pylab.legend()
 pylab.xlabel('$x$')
 pylab.ylabel('$\pi$')
-pylab.title('levy harmonic path (beta=%s, N=%i)' % (beta, N))
+pylab.title('levy harmonic path ($\\beta$=%s, N=%i)' % (beta, N))
 pylab.xlim(-x_max, x_max)
 pylab.savefig('plot_levy_harmonic_path%s.png' % beta)
 pylab.show()

@@ -56,8 +56,8 @@ for step in xrange(nsteps):
 x = [ x_max * i / M for i in range(-M, M + 1)]
 
 pylab.title("$\pi$ with two bosons")
-pylab.plot(x, [ pi_two_bosons(x, beta) for x in x], label='$\pi_{2 bosons}^{calc}(x,beta)$')
-pylab.hist(data, normed=True, bins=100, label='$\pi_{2 bosons}^{sample}(x,beta)$')
+pylab.plot(x, [ pi_two_bosons(x, beta) for x in x], label='$\pi_{2 bosons}^{calc}(x, \\beta)$')
+pylab.hist(data, normed=True, bins=100, label='$\pi_{2 bosons}^{sample}(x, \\beta)$')
 pylab.legend()
 pylab.xlabel('$x$')
 pylab.ylabel('$\pi_{2 bosons}$')
