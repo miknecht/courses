@@ -57,10 +57,6 @@ print 'mean energy per spin:', sum(E) / float(len(E) * N), ' with ', nsteps, ' s
 write(filename)
 
 
-
-
-
-
 conf = [[0 for x in range(L)] for y in range(L)]
 for k in range(N):
     x, y = x_y(k, L)
